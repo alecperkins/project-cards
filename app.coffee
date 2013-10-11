@@ -8,8 +8,10 @@ oldSync = Backbone.sync
 Backbone.sync = (method, model, options={}) ->
     console.log method, model, options
     options.headers ?= {}
-    _.extend options.headers,
+    options.headers = _.extend {},
         'Authorization': "Token #{ params.CONTENT_API_TOKEN }"
+        'X-Content-Query-Limit': 100
+    , options.headers
 
     return oldSync(method, model, options)
 
