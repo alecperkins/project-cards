@@ -100,14 +100,6 @@ class CardView extends Tags.DIV
                     @$el.removeAttr('data-expanded')
                 else
                     @$el.attr('data-expanded', true)
-        @addContent new Button
-            type: 'icon'
-            label: 'Delete'
-            class: 'dangerous'
-            extra_classes: ['CardView_delete']
-            action: =>
-                @model.destroy()
-                @$el.remove()
         @addContent makeStringFieldForProperty
             model: @model
             property: 'title'
@@ -133,7 +125,14 @@ class CardView extends Tags.DIV
             options:
                 tokenize: true
                 label: 'Requires'
-
+        @addContent new Button
+            type: 'icon'
+            label: 'Delete'
+            class: 'dangerous'
+            extra_classes: ['CardView_delete']
+            action: =>
+                @model.destroy()
+                @$el.remove()
         @x = @model.get('position').left
         @y = @model.get('position').top
         @$el.css
@@ -229,6 +228,7 @@ controls = new Tags.DIV
     content: [
         new Button
             label: 'Add Card'
+            class: 'friendly'
             spinner: true
             action: (self) ->
                 console.log self, card_collection.url()
