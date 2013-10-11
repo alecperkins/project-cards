@@ -39,7 +39,8 @@ makeStringFieldForProperty = ({ model, property, options }) ->
     options ?= {}
     options.value = model.get(property) or ''
     options.on = blur: (self) ->
-        model.save(property, self.value)
+        if self.value isnt model.get(property)
+            model.save(property, self.value)
     field = new StringInput(options)
     return field
 
