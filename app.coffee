@@ -51,7 +51,12 @@ class CardView extends Tags.DIV
     className: 'CardView'
     events: -> {
         'mousedown': '_startDrag'
+        'mousedown > *': '_stopPropagation'
+        'click > *': '_stopPropagation'
     }
+
+    _stopPropagation: (e) ->
+        e.stopPropagation()
 
     _startDrag: (e) ->
         global_dragging_obj = this
@@ -171,13 +176,13 @@ class CardCanvas extends Tags.DIV
         return @el
 
     _startDrag: (e) =>
-        e.preventDefault()
         global_is_dragging = true
         global_dragging_obj ?= this
         @_drag_x = e.screenX
         @_drag_y = e.screenY
 
     _doDrag: (e) =>
+        e.preventDefault()
         e.stopPropagation()
         if global_is_dragging and global_dragging_obj
             global_dragging_obj.updatePosition(e.screenX - @_drag_x, e.screenY - @_drag_y)
