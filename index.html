@@ -40,6 +40,10 @@
     .CardView_delete {
         float: right;
         margin: 0 0 10px 10px;
+        display: none;
+    }
+    .CardView[data-expanded="true"] .CardView_delete {
+        display: inline-block;
     }
     .StringInput.description {
         clear: both;
