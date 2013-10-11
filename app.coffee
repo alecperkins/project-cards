@@ -178,6 +178,7 @@ class CardCanvas extends Tags.DIV
     _startDrag: (e) =>
         global_is_dragging = true
         global_dragging_obj ?= this
+        global_dragging_obj.$el.attr('data-dragging', true)
         @_drag_x = e.screenX
         @_drag_y = e.screenY
 
@@ -191,6 +192,7 @@ class CardCanvas extends Tags.DIV
         e.stopPropagation()
         global_is_dragging = false
         if global_dragging_obj?
+            global_dragging_obj.$el.removeAttr('data-dragging')
             global_dragging_obj.updatePosition(e.screenX - @_drag_x, e.screenY - @_drag_y, true)
             @_drag_x = null
             @_drag_y = null
