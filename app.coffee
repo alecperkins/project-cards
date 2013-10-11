@@ -23,11 +23,12 @@ class CardCollection extends Collection
     model: Card
     url: -> params.CONTENT_API_ROOT
     addCard: (callback) =>
+        { x, y } = canvas.getScreenCenter()
         @create {
                 type: 'text'
                 position:
-                    top: 0
-                    left: 0
+                    left: x
+                    top: y
             },
                 wait: true
                 success: (model) ->
@@ -202,6 +203,15 @@ class CardCanvas extends Tags.DIV
             @y = new_y
         return
 
+    getScreenCenter: ->
+        $w = $(window)
+        w_x = $w.width() / 2 - @x
+        w_y = $w.height() / 2 - @y
+        return {
+            x: w_x
+            y: w_y
+        }
+
 
 
 
@@ -226,7 +236,6 @@ controls = new Tags.DIV
 card_collection.on 'sync', ->
     # console.log card_collection.models
 card_collection.on 'add', (card) ->
-    console.log card
     canvas.addContent new CardView
         model: card
 
